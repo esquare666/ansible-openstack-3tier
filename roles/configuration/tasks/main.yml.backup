@@ -1,0 +1,12 @@
+---
+- name: configuration
+  hosts: all
+  gather_facts: true
+  become: true
+
+  tasks:
+  - name: enable repos
+    template:
+      src: /root/good-ansible/roles/configuration/templates/open_three-tier-app.repo
+      dest: /etc/yum.repos.d/open_three-tier-app.repo
+      mode: 0644

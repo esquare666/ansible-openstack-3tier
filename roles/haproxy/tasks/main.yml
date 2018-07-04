@@ -1,0 +1,14 @@
+---
+- name: Instal required packages using yum
+  yum:
+    name: "{{item}}"
+    state: latest
+  with_items:
+   - httpie
+   - haproxy  
+- name: configure haproxy
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify:
+  - restart HAproxy

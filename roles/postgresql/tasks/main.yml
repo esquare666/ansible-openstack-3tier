@@ -1,0 +1,20 @@
+---
+- name: Instal required packages using yum
+  yum:
+    name: postgresql-server
+    state: latest
+
+- name: Check if PostgreSQL database is initialized.
+  stat:
+    path: "/var/lib/pgsql/data/PG_VERSION"
+  register: pgdata_dir_version
+
+- name: Ensure PostgreSQL database is initialized.
+  command: "postgresql-setup initdb"
+  when: not pgdata_dir_version.stat.exists
+   
+- name: start and enable postgres
+  service:
+    name: postgresql
+    state: started
+    enabled: yes

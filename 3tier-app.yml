@@ -1,0 +1,26 @@
+---
+- name: Running 3 Tier Application
+  hosts: jumpbox
+  gather_facts: true
+  roles:
+    - name: osp-facts
+
+- name: Pre tasks configuration
+  hosts: all
+  roles:
+    - configuration
+
+- name: setup HAProxy - load-balancer
+  hosts: frontends
+  roles:
+    - {name: haproxy, tags: [lbs, haproxy]}
+
+- name: setup Tomcat on Application Servers
+  hosts: apps
+  roles:
+    - {name: tomcat, tags: [apps, tomcat]}
+
+- name: setup Postgrsql
+  hosts: appdbs
+  roles:
+    - {name: postgresql, tags: [dbs, postgres]}
