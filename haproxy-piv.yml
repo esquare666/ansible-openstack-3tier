@@ -11,5 +11,5 @@
        uri:
           url: http://localhost
           return_content: yes
-       register: haproxy-res
-       failed_when: "'Welcome' not in haproxy-res.content"
+       register: res
+       failed_when: "'Welcome' not in res.content"
