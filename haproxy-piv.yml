@@ -1,4 +1,4 @@
-- hosts: jumphost
+- hosts: jumpbox
   gather_facts: false
   tasks:
   - name: OpenStack servers
