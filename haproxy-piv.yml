@@ -1,0 +1,15 @@
+- name: PIV Check
+  hosts: jumpbox
+  gather_facts: true
+  roles:
+    - name: osp-facts  
+
+- name: setup HAProxy - load-balancer
+  hosts: frontends	
+  tasks:
+     - name: PIV to confirm the HA proxy works
+       uri:
+          url: http://localhost
+          return_content: yes
+       register: haproxy-res
+       failed_when: "'Welcome' not in haproxy-res.content"
